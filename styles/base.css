@@ -1,13 +1,4 @@
-/* ============================================================
-   BASE.CSS — Variables, reset, fonts
-   Foundation du design system. Importé en premier.
-   ============================================================ */
 
-/* ════════ FONTS — SELF-HOSTÉES (zéro dépendance externe) ════════ */
-
-/* Almarena Display — typo phare pour les titres (sous licence commerciale)
-   Servie uniquement en WOFF2 (format web-only, non installable comme font système)
-   → protection minimale contre la réutilisation casuelle du fichier. */
 @font-face {
     font-family: 'Almarena Display';
     src: url('../assets/fonts/Almarena-Display-Regular.woff2') format('woff2');
@@ -16,8 +7,7 @@
     font-display: swap;
 }
 
-/* Inter — typo body, 5 graisses
-   Source officielle : rsms.me/inter (Rasmus Andersson, créateur de Inter) */
+
 @font-face {
     font-family: 'Inter';
     src: url('../assets/fonts/Inter-Light.woff2') format('woff2');
@@ -58,14 +48,9 @@
     font-display: swap;
 }
 
-/* ────── DESIGN TOKENS ────── */
+
 :root {
-    /* Couleurs — palette LIGHT (cosmos.so inspired)
-     * Tous les textes respectent WCAG AA minimum (4.5:1) sur le fond principal :
-     *  - text         (#0A0A0A) sur bg  → 18.75:1  AAA
-     *  - text-secondary (#525252) sur bg → 7.13:1   AAA
-     *  - text-tertiary  (#6B6B6B) sur bg → 5.58:1   AA  (anciennement #A3A3A3 = FAIL)
-     */
+ 
     --color-bg: #FAFAFA;
     --color-bg-elevated: #FFFFFF;
     --color-bg-subtle: #F4F4F4;
@@ -125,12 +110,7 @@
 }
 
 /* ────── DARK THEME ────── */
-/* Activé via [data-theme="dark"] sur <html> par le module theme-toggle.js
- * Contrastes vérifiés WCAG AA :
- *  - text         (#FAFAFA) sur bg → 18.75:1  AAA
- *  - text-secondary (#A3A3A3) sur bg → 7.85:1   AAA
- *  - text-tertiary  (#878787) sur bg → 5.20:1   AA  (anciennement #6B6B6B = FAIL)
- */
+
 [data-theme="dark"] {
     --color-bg: #0A0A0A;
     --color-bg-elevated: #141414;
