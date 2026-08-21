@@ -2,7 +2,7 @@
 
 Single-page HTML/CSS/JS vanilla. Architecture modulaire, zéro dépendance d'exécution, accessibilité WCAG AA, export PDF via `window.print()`.
 
-Démo : https://maximegarin.github.io/cv-alternance-cda/
+Démo : 
 
 ---
 
