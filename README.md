@@ -1,8 +1,8 @@
+// démo https://maximegarin.github.io/cv-dev-web-junior/
+
 # CV Interactif — Maxime Garin
 
 Single-page HTML/CSS/JS vanilla. Architecture modulaire, zéro dépendance d'exécution, accessibilité WCAG AA, export PDF via `window.print()`.
-
-Démo : 
 
 ---
 
