@@ -113,7 +113,7 @@ git push -u origin main
 # Settings → Pages → Source: main / root
 ```
 
-URL générée : https://maximegarin.github.io/cv-alternance-cda/
+
 
 ### Netlify
 
