@@ -1,0 +1,32 @@
+# Dépendances Node (créées si tu lances npm install)
+node_modules/
+
+# Logs
+npm-debug.log*
+*.log
+
+# Build / cache
+.cache/
+dist/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Env / secrets (par sécurité, même si pas utilisés ici)
+.env
+.env.local
+.env.*.local
+
+# Fichiers de conversion ponctuelle (générés par scripts one-shot)
+convert-font.mjs
+package.json
+package-lock.json

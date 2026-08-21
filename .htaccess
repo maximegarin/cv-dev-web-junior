@@ -1,0 +1,68 @@
+# =============================================================
+# .htaccess — Protection des fonts et configuration serveur
+# Compatible Apache (mod_rewrite, mod_headers, mod_expires)
+# =============================================================
+
+# ───── 1. PROTECTION DES FONTS (hotlink + cross-origin) ─────
+# Bloque le téléchargement direct des .woff2 depuis un autre site.
+# Le navigateur doit avoir un Referer pointant sur TON domaine,
+# ou pas de Referer du tout (cas du chargement initial CSS).
+# Remplace "ton-domaine.com" par ton vrai domaine au déploiement.
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Autoriser sans Referer (chargement initial CSS via @font-face)
+    RewriteCond %{HTTP_REFERER} !^$
+
+    # Autoriser SEULEMENT depuis ton domaine (ajuster avec le vrai au déploiement)
+    RewriteCond %{HTTP_REFERER} !^https?://(www\.)?ton-domaine\.com [NC]
+    RewriteCond %{HTTP_REFERER} !^https?://(www\.)?maximegarin\.github\.io [NC]
+    RewriteCond %{HTTP_REFERER} !^https?://localhost [NC]
+    RewriteCond %{HTTP_REFERER} !^https?://127\.0\.0\.1 [NC]
+
+    # Bloque le téléchargement des fonts si Referer ne matche pas
+    RewriteRule \.(woff2?|otf|ttf)$ - [F,L]
+</IfModule>
+
+# ───── 2. CORS — restreindre l'embed cross-origin des fonts ─────
+# Sans ce header, d'autres sites pourraient embed ta font via @font-face.
+<IfModule mod_headers.c>
+    <FilesMatch "\.(woff2?|otf|ttf)$">
+        # Adapter avec le vrai domaine de prod
+        Header set Access-Control-Allow-Origin "https://ton-domaine.com"
+        Header set X-Content-Type-Options "nosniff"
+    </FilesMatch>
+</IfModule>
+
+# ───── 3. MIME TYPES (sécurité) ─────
+<IfModule mod_mime.c>
+    AddType font/woff2 .woff2
+    AddType font/woff .woff
+</IfModule>
+
+# ───── 4. CACHE BROWSER pour les assets statiques ─────
+<IfModule mod_expires.c>
+    ExpiresActive On
+    # Fonts cachées 1 an (immutables, hash dans le nom recommandé en prod)
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    # CSS/JS cachés 1 mois
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    # HTML revérifié à chaque visite
+    ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+# ───── 5. COMPRESSION GZIP (perf) ─────
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript
+    # NB : les .woff2 sont déjà compressés en interne, pas besoin
+</IfModule>
+
+# ───── 6. SÉCURITÉ HEADERS ─────
+<IfModule mod_headers.c>
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-Content-Type-Options "nosniff"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

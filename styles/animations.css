@@ -1,0 +1,175 @@
+/* ────── REVEAL ON SCROLL ────── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ────── STAGGER ────── */
+
+.section .reveal:nth-child(1) {
+  transition-delay: 0ms;
+}
+.section .reveal:nth-child(2) {
+  transition-delay: 60ms;
+}
+.section .reveal:nth-child(3) {
+  transition-delay: 120ms;
+}
+.section .reveal:nth-child(4) {
+  transition-delay: 180ms;
+}
+.section .reveal:nth-child(5) {
+  transition-delay: 240ms;
+}
+
+.skills-grid .reveal:nth-child(1) {
+  transition-delay: 0ms;
+}
+.skills-grid .reveal:nth-child(2) {
+  transition-delay: 80ms;
+}
+.skills-grid .reveal:nth-child(3) {
+  transition-delay: 160ms;
+}
+.skills-grid .reveal:nth-child(4) {
+  transition-delay: 240ms;
+}
+
+.timeline .reveal:nth-child(1) {
+  transition-delay: 0ms;
+}
+.timeline .reveal:nth-child(2) {
+  transition-delay: 100ms;
+}
+.timeline .reveal:nth-child(3) {
+  transition-delay: 200ms;
+}
+
+.contact-grid .reveal:nth-child(1) {
+  transition-delay: 0ms;
+}
+.contact-grid .reveal:nth-child(2) {
+  transition-delay: 60ms;
+}
+.contact-grid .reveal:nth-child(3) {
+  transition-delay: 120ms;
+}
+.contact-grid .reveal:nth-child(4) {
+  transition-delay: 180ms;
+}
+
+/* ────── HERO TITLE — split caractère par caractère ────── */
+
+.hero-title.reveal {
+  opacity: 1;
+  transform: none;
+}
+
+.hero-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.4em);
+  transition:
+    opacity 700ms var(--ease-out),
+    transform 900ms var(--ease-out);
+  /* Délai en cascade : chaque char part 40ms après le précédent */
+  transition-delay: calc(var(--char-i, 0) * 40ms);
+  will-change: opacity, transform;
+}
+
+.hero-title.is-visible .hero-char {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ────── HOVER GLOW  ────── */
+
+.project-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(10, 10, 10, 0.025),
+    transparent 40%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--dur-normal) var(--ease-out);
+  border-radius: inherit;
+}
+
+.project-card:hover::after {
+  opacity: 1;
+}
+
+/* ────── PULSE ────── */
+
+@keyframes subtle-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: var(--space-2);
+  border-radius: 50%;
+  background-color: #16a34a;
+  animation: subtle-pulse 2.5s ease-in-out infinite;
+  vertical-align: middle;
+}
+
+/* ────── SCROLL INDICATOR HERO ────── */
+@keyframes scroll-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
+}
+
+/* ────── DÉSACTIVER ANIMATIONS SI prefers-reduced-motion ────── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-char {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .eyebrow::before {
+    animation: none;
+    opacity: 0.7;
+  }
+}

@@ -1,0 +1,456 @@
+/* ============================================================
+   PRINT.CSS — Mode impression / téléchargement PDF
+   Objectif : tenir sur 1-2 pages A4 max avec composition propre.
+   Approche : tout réécrire en compact, ignorer le layout écran.
+   ============================================================ */
+
+@media print {
+
+    /* ────── PAGE A4 ────── */
+    @page {
+        size: A4 portrait;
+        margin: 10mm 12mm;
+    }
+
+    /* ────── RESET DU MODE SOMBRE EN PRINT ────── */
+    /* On force le thème clair pour l'impression, peu importe le toggle. */
+    html,
+    html[data-theme="dark"] {
+        --color-bg: #FFFFFF;
+        --color-bg-elevated: #FFFFFF;
+        --color-bg-subtle: #F5F5F5;
+        --color-text: #000000;
+        --color-text-secondary: #333333;
+        --color-text-tertiary: #777777;
+        --color-border: #DDDDDD;
+        --color-border-strong: #BBBBBB;
+    }
+
+    * {
+        background: transparent !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+        transition: none !important;
+        animation: none !important;
+        color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+
+    html,
+    body {
+        background: #fff !important;
+        color: #000 !important;
+        font-family: 'Inter', -apple-system, sans-serif !important;
+        font-size: 9pt;
+        line-height: 1.35;
+    }
+
+    /* ────── MASQUER LES ÉLÉMENTS INTERACTIFS ────── */
+    .scroll-progress,
+    .side-nav,
+    .hero-cta,
+    .hero-avatar,
+    .footer,
+    .project-card-link svg,
+    .btn-icon,
+    .btn-print,
+    .btn-back-top,
+    .custom-cursor {
+        display: none !important;
+    }
+
+    /* ────── REVEAL : tout visible ────── */
+    .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    /* Chars du hero : forcer leur visibilité (pas d'animation au print) */
+    .hero-char {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    .eyebrow::before,
+    .project-card::after {
+        display: none !important;
+    }
+
+    /* ────── LAYOUT GLOBAL ────── */
+    .main {
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+        max-width: 100% !important;
+    }
+
+    .main > * {
+        max-width: 100% !important;
+    }
+
+    /* ────── HERO : compact bandeau haut ────── */
+    .section--hero {
+        padding: 0 0 4mm 0 !important;
+        margin-bottom: 4mm !important;
+        border-bottom: 0.4pt solid #999 !important;
+        page-break-after: avoid;
+    }
+
+    .eyebrow {
+        font-size: 7pt !important;
+        color: #666 !important;
+        letter-spacing: 0.04em !important;
+        margin-bottom: 1mm !important;
+        text-transform: uppercase;
+    }
+
+    .hero-title {
+        font-family: 'Almarena Display', 'Times New Roman', serif !important;
+        font-size: 22pt !important;
+        line-height: 1 !important;
+        letter-spacing: -0.02em !important;
+        margin-bottom: 1mm !important;
+        color: #000 !important;
+    }
+
+    .hero-subtitle {
+        font-size: 10pt !important;
+        font-weight: 500;
+        color: #222 !important;
+        margin-bottom: 2mm !important;
+    }
+
+    .hero-target {
+        font-size: 8.5pt !important;
+        color: #444 !important;
+        margin: 0 !important;
+    }
+
+    .hero-target-divider {
+        margin: 0 0.4em !important;
+        color: #aaa !important;
+    }
+
+    .hero-target-dim {
+        color: #888 !important;
+        font-size: 7.5pt !important;
+    }
+
+    /* ────── SECTIONS GÉNÉRIQUES ────── */
+    .section {
+        padding: 3mm 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        page-break-inside: avoid;
+    }
+
+    .section-title {
+        font-family: 'Almarena Display', 'Times New Roman', serif !important;
+        font-size: 13pt !important;
+        font-weight: 400 !important;
+        letter-spacing: -0.01em !important;
+        line-height: 1 !important;
+        margin-bottom: 2mm !important;
+        padding-bottom: 1mm !important;
+        border-bottom: 0.4pt solid #999 !important;
+        color: #000 !important;
+        page-break-after: avoid;
+    }
+
+    .section-subtitle {
+        display: none !important;
+    }
+
+    /* ────── PROFIL : 2 colonnes serrées ────── */
+    .profile-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 60mm !important;
+        gap: 6mm !important;
+        margin: 0 !important;
+    }
+
+    .profile-text p {
+        font-size: 9pt !important;
+        color: #222 !important;
+        margin-bottom: 1.5mm !important;
+        line-height: 1.4 !important;
+    }
+
+    .profile-text p:last-child {
+        margin-bottom: 0 !important;
+    }
+
+    .profile-aside {
+        padding-left: 4mm !important;
+        border-left: 0.4pt solid #ddd !important;
+    }
+
+    .profile-meta {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1.5mm !important;
+    }
+
+    .profile-meta dt {
+        font-size: 6.5pt !important;
+        color: #888 !important;
+        letter-spacing: 0.04em !important;
+        margin: 0 !important;
+        text-transform: uppercase;
+    }
+
+    .profile-meta dd {
+        font-size: 8.5pt !important;
+        color: #000 !important;
+        margin: 0 !important;
+    }
+
+    /* ────── PROJETS : cartes très compactes ────── */
+    .section--projects {
+        page-break-inside: auto;
+    }
+
+    .project-card {
+        margin: 2mm 0 !important;
+        padding: 3mm 4mm !important;
+        border: 0.4pt solid #ccc !important;
+        border-radius: 2mm !important;
+        page-break-inside: avoid;
+    }
+
+    .project-card-header {
+        margin-bottom: 2mm !important;
+    }
+
+    .project-card-meta {
+        font-size: 6.5pt !important;
+        margin-bottom: 1mm !important;
+        letter-spacing: 0.04em !important;
+        color: #666 !important;
+    }
+
+    .project-card-year {
+        color: #000 !important;
+        font-weight: 600;
+    }
+
+    .project-card-title {
+        font-family: 'Almarena Display', 'Times New Roman', serif !important;
+        font-size: 11pt !important;
+        margin-bottom: 1mm !important;
+        color: #000 !important;
+    }
+
+    .project-card-lead {
+        font-size: 8.5pt !important;
+        color: #333 !important;
+        line-height: 1.35 !important;
+    }
+
+    .project-card-body {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 2mm !important;
+        padding-top: 2mm !important;
+        border-top: 0.3pt solid #eee !important;
+    }
+
+    .project-card-section h4 {
+        font-size: 6.5pt !important;
+        margin-bottom: 1mm !important;
+        color: #666 !important;
+        letter-spacing: 0.06em !important;
+    }
+
+    .achievement-list {
+        gap: 0.5mm !important;
+    }
+
+    .achievement-list li {
+        font-size: 8pt !important;
+        padding-left: 3mm !important;
+        color: #333 !important;
+        line-height: 1.35 !important;
+    }
+
+    .achievement-list li::before {
+        top: 0.5em !important;
+        width: 2mm !important;
+    }
+
+    .project-card-footer {
+        margin-top: 2mm !important;
+        padding-top: 1.5mm !important;
+        border-top: 0.3pt solid #eee !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 4mm !important;
+    }
+
+    .project-card-link {
+        font-size: 7.5pt !important;
+        color: #555 !important;
+        border-bottom: none !important;
+        padding: 0 !important;
+    }
+
+    /* ────── COMPÉTENCES : grille 3 colonnes denses ────── */
+    .skills-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 3mm 6mm !important;
+        margin: 0 !important;
+    }
+
+    .skills-group {
+        page-break-inside: avoid;
+    }
+
+    .skills-group-title {
+        font-family: 'Almarena Display', 'Times New Roman', serif !important;
+        font-size: 9.5pt !important;
+        margin-bottom: 1.5mm !important;
+        color: #000 !important;
+    }
+
+    .tag-list {
+        gap: 1mm !important;
+    }
+
+    .tag {
+        padding: 0.4mm 2mm !important;
+        font-size: 7.5pt !important;
+        border: 0.3pt solid #bbb !important;
+        background: transparent !important;
+        color: #333 !important;
+        line-height: 1.4 !important;
+    }
+
+    /* ────── TIMELINE (expérience + formation) ────── */
+    .timeline {
+        gap: 2.5mm !important;
+        margin: 0 !important;
+    }
+
+    .timeline-item {
+        display: grid !important;
+        grid-template-columns: 22mm 1fr !important;
+        gap: 4mm !important;
+        padding-bottom: 2mm !important;
+        border-bottom: 0.3pt solid #eee !important;
+        page-break-inside: avoid;
+    }
+
+    .timeline-item:last-child {
+        border-bottom: none !important;
+        padding-bottom: 0 !important;
+    }
+
+    .timeline-period {
+        font-size: 7.5pt !important;
+        color: #666 !important;
+        padding-top: 0.5mm !important;
+    }
+
+    .timeline-title {
+        font-family: 'Almarena Display', 'Times New Roman', serif !important;
+        font-size: 10pt !important;
+        margin-bottom: 0.5mm !important;
+        color: #000 !important;
+        line-height: 1.2 !important;
+    }
+
+    .timeline-context {
+        font-size: 7.5pt !important;
+        color: #888 !important;
+    }
+
+    .timeline-org {
+        font-size: 8pt !important;
+        color: #444 !important;
+        margin-bottom: 1mm !important;
+    }
+
+    .timeline-points {
+        gap: 0.5mm !important;
+    }
+
+    .timeline-points li {
+        font-size: 8pt !important;
+        padding-left: 3mm !important;
+        color: #333 !important;
+        line-height: 1.35 !important;
+    }
+
+    .timeline-points li::before {
+        top: 0.5em !important;
+        width: 2mm !important;
+    }
+
+    /* ────── CONTACT : compact 2 colonnes ────── */
+    .section--contact {
+        page-break-inside: avoid;
+    }
+
+    .contact-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1.5mm 3mm !important;
+        margin: 0 !important;
+    }
+
+    .contact-card {
+        padding: 1.5mm 3mm !important;
+        border: 0.3pt solid #ddd !important;
+        border-radius: 1mm !important;
+    }
+
+    .contact-card-label {
+        font-size: 6.5pt !important;
+        color: #888 !important;
+    }
+
+    .contact-card-value {
+        font-size: 8pt !important;
+        color: #000 !important;
+    }
+
+    .contact-langs {
+        margin-top: 3mm !important;
+        padding-top: 2mm !important;
+        border-top: 0.3pt solid #ddd !important;
+    }
+
+    .contact-langs-title {
+        font-family: 'Almarena Display', 'Times New Roman', serif !important;
+        font-size: 9pt !important;
+        margin-bottom: 1mm !important;
+    }
+
+    .contact-langs-list {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 1mm !important;
+        font-size: 8pt !important;
+    }
+
+    .contact-langs-list strong {
+        min-width: auto !important;
+        margin-right: 0.5em !important;
+    }
+
+    /* ────── PAGE BREAKS STRATÉGIQUES ────── */
+    /* On essaie de garder hero + profil + skills + projets sur page 1.
+       Si overflow, expérience + formation + contact passent sur page 2. */
+    .section--experience {
+        page-break-before: auto;
+    }
+
+    /* ────── LIENS : URL affichée discrètement après le texte ────── */
+    /* On désactive cette feature pour rester compact. */
+    a[href]::after {
+        content: "" !important;
+    }
+
+}

@@ -1,0 +1,525 @@
+/* ============================================================
+   COMPONENTS.CSS — Boutons, cartes projets, tags, timeline
+   Composants réutilisables.
+   ============================================================ */
+
+/* ────── BOUTON RETOUR EN HAUT ────── */
+/* Sticky bottom-right, n'apparaît qu'après un certain scroll.
+   Visibilité contrôlée par .is-visible (ajoutée par back-to-top.js). */
+.btn-back-top {
+    position: fixed;
+    bottom: var(--space-6);
+    right: var(--space-6);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-text);
+    color: var(--color-bg);
+    border: 1px solid var(--color-text);
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    opacity: 0;
+    transform: translateY(16px);
+    pointer-events: none;
+    z-index: 90;
+    transition:
+        opacity var(--dur-normal) var(--ease-out),
+        transform var(--dur-normal) var(--ease-out),
+        background-color var(--dur-fast) var(--ease-out),
+        color var(--dur-fast) var(--ease-out);
+}
+
+.btn-back-top.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.btn-back-top:hover {
+    background: var(--color-bg);
+    color: var(--color-text);
+    transform: translateY(-3px);
+}
+
+.btn-back-top:active {
+    transform: translateY(0);
+}
+
+/* Tablet : un peu plus discret */
+@media (max-width: 720px) {
+    .btn-back-top {
+        bottom: var(--space-4);
+        right: var(--space-4);
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* ────── CURSEUR CUSTOM ────── */
+/* Petit cercle qui suit la souris avec slight delay (lerp côté JS).
+   mix-blend-mode: difference → s'inverse automatiquement sur tout fond.
+   Désactivé sur touch via @media (hover: none). */
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 14px;
+    height: 14px;
+    margin-left: -7px;
+    margin-top: -7px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+    transition:
+        width var(--dur-normal) var(--ease-out),
+        height var(--dur-normal) var(--ease-out),
+        margin var(--dur-normal) var(--ease-out),
+        opacity var(--dur-fast) var(--ease-out),
+        background-color var(--dur-fast) var(--ease-out);
+    will-change: transform;
+}
+
+/* Mode "loupe modéré" au survol des éléments interactifs */
+.custom-cursor.is-hovering {
+    width: 32px;
+    height: 32px;
+    margin-left: -16px;
+    margin-top: -16px;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+/* Effet "press" pendant un click — feedback subtil */
+.custom-cursor.is-pressed {
+    width: 10px;
+    height: 10px;
+    margin-left: -5px;
+    margin-top: -5px;
+}
+
+/* Curseur masqué quand la souris quitte la fenêtre */
+.custom-cursor.is-hidden {
+    opacity: 0;
+}
+
+/* Désactivation propre sur touch + reduced motion */
+@media (hover: none), (prefers-reduced-motion: reduce) {
+    .custom-cursor {
+        display: none !important;
+    }
+}
+
+/* ────── BOUTONS ────── */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--fs-sm);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    border-radius: 999px;
+    transition: all var(--dur-fast) var(--ease-out);
+    cursor: pointer;
+    border: 1px solid transparent;
+    white-space: nowrap;
+}
+
+.btn--primary {
+    background-color: var(--color-text);
+    color: var(--color-bg);
+    border-color: var(--color-text);
+}
+
+.btn--primary:hover {
+    background-color: transparent;
+    color: var(--color-text);
+}
+
+.btn--ghost {
+    background-color: transparent;
+    color: var(--color-text);
+    border-color: var(--color-border-strong);
+}
+
+.btn--ghost:hover {
+    background-color: var(--color-text);
+    color: var(--color-bg);
+    border-color: var(--color-text);
+}
+
+.btn-print {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--fs-xs);
+    font-weight: 500;
+    color: var(--color-text);
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    transition: color var(--dur-fast) var(--ease-out),
+                border-color var(--dur-fast) var(--ease-out),
+                background-color var(--dur-fast) var(--ease-out);
+}
+
+.btn-print:hover {
+    border-color: var(--color-text);
+}
+
+.btn-print svg {
+    flex-shrink: 0;
+}
+
+/* ────── BOUTON ICÔNE (toggle thème) ────── */
+.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    color: var(--color-text);
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    transition: color var(--dur-fast) var(--ease-out),
+                border-color var(--dur-fast) var(--ease-out),
+                background-color var(--dur-fast) var(--ease-out),
+                transform var(--dur-fast) var(--ease-out);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-icon:hover {
+    border-color: var(--color-text);
+    transform: rotate(15deg);
+}
+
+.btn-icon svg {
+    position: absolute;
+    transition: opacity var(--dur-fast) var(--ease-out),
+                transform var(--dur-fast) var(--ease-out);
+}
+
+/* En light : on voit la lune (pour basculer en dark) */
+.btn-icon .icon-sun {
+    opacity: 0;
+    transform: rotate(-90deg);
+}
+.btn-icon .icon-moon {
+    opacity: 1;
+    transform: rotate(0);
+}
+
+/* En dark : on voit le soleil (pour basculer en light) */
+[data-theme="dark"] .btn-icon .icon-sun {
+    opacity: 1;
+    transform: rotate(0);
+}
+[data-theme="dark"] .btn-icon .icon-moon {
+    opacity: 0;
+    transform: rotate(90deg);
+}
+
+/* ────── TAGS / BADGES ────── */
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+.tag {
+    display: inline-block;
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--fs-xs);
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    background-color: var(--color-bg-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    letter-spacing: 0.01em;
+    transition: all var(--dur-fast) var(--ease-out);
+}
+
+.tag:hover {
+    color: var(--color-text);
+    border-color: var(--color-border-strong);
+}
+
+/* ────── PROJECT CARD ────── */
+.project-card {
+    margin-top: var(--space-8);
+    padding: var(--space-8);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    transition: all var(--dur-normal) var(--ease-out);
+}
+
+.project-card:hover {
+    border-color: var(--color-border-strong);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.04);
+}
+
+.project-card-header {
+    margin-bottom: var(--space-6);
+}
+
+.project-card-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+    font-size: var(--fs-xs);
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.project-card-year {
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.project-card-context {
+    position: relative;
+    padding-left: var(--space-3);
+}
+
+.project-card-context::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background-color: var(--color-text-tertiary);
+    transform: translateY(-50%);
+}
+
+.project-card-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-2xl);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-3);
+    color: var(--color-text);
+}
+
+.project-card-lead {
+    font-size: var(--fs-md);
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    max-width: 640px;
+}
+
+.project-card-body {
+    display: grid;
+    gap: var(--space-6);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+}
+
+.project-card-section h4 {
+    font-size: var(--fs-xs);
+    font-weight: 500;
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-3);
+}
+
+.achievement-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.achievement-list li {
+    position: relative;
+    padding-left: var(--space-6);
+    font-size: var(--fs-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+}
+
+.achievement-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 12px;
+    height: 1px;
+    background-color: var(--color-border-strong);
+}
+
+.project-card-footer {
+    margin-top: var(--space-6);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+    align-items: center;
+}
+
+.project-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--fs-sm);
+    font-weight: 500;
+    color: var(--color-text);
+    padding-bottom: 2px;
+    border-bottom: 1px solid var(--color-text);
+    transition: gap var(--dur-fast) var(--ease-out);
+}
+
+.project-card-link:hover {
+    gap: var(--space-3);
+}
+
+.project-card-link svg {
+    transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.project-card-link:hover svg {
+    transform: translate(2px, -2px);
+}
+
+/* ────── TIMELINE (Expérience, Formation) ────── */
+.timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    margin-top: var(--space-8);
+}
+
+.timeline-item {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: var(--space-8);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.timeline-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.timeline-period {
+    font-size: var(--fs-sm);
+    font-weight: 500;
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.02em;
+    padding-top: 0.25em;
+}
+
+.timeline-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-xl);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    margin-bottom: var(--space-1);
+    color: var(--color-text);
+}
+
+.timeline-context {
+    font-size: var(--fs-sm);
+    color: var(--color-text-tertiary);
+    font-weight: 400;
+}
+
+.timeline-org {
+    font-size: var(--fs-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-3);
+}
+
+.timeline-points {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.timeline-points li {
+    position: relative;
+    padding-left: var(--space-4);
+    font-size: var(--fs-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+}
+
+.timeline-points li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 8px;
+    height: 1px;
+    background-color: var(--color-border-strong);
+}
+
+/* ────── CONTACT CARDS ────── */
+.contact-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-4) var(--space-6);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition: all var(--dur-fast) var(--ease-out);
+}
+
+.contact-card:not(.contact-card--static):hover {
+    border-color: var(--color-text);
+    transform: translateY(-2px);
+}
+
+.contact-card-label {
+    font-size: var(--fs-xs);
+    font-weight: 500;
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.contact-card-value {
+    font-size: var(--fs-sm);
+    color: var(--color-text);
+    font-weight: 500;
+    word-break: break-word;
+}
+
+/* ────── RESPONSIVE ────── */
+@media (max-width: 720px) {
+    .project-card {
+        padding: var(--space-6);
+    }
+
+    .project-card-title {
+        font-size: var(--fs-xl);
+    }
+
+    .timeline-item {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+    }
+
+    .timeline-period {
+        font-size: var(--fs-xs);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+    }
+}

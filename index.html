@@ -1,0 +1,855 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Maxime Garin — Développeur web junior, profil hybride design + dev. Basé à Nantes, disponible immédiatement en CDI, CDD ou freelance. Full-stack JavaScript (React, Node) & WordPress."
+    />
+    <meta name="author" content="Maxime Garin" />
+
+    <title>Maxime Garin — Développeur Web Junior</title>
+
+    <!-- Préchargement des fonts critiques (perf : LCP optimisé) -->
+    <link
+      rel="preload"
+      href="assets/fonts/Inter-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="assets/fonts/Almarena-Display-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <link rel="stylesheet" href="styles/base.css" />
+    <link rel="stylesheet" href="styles/layout.css" />
+    <link rel="stylesheet" href="styles/components.css" />
+    <link rel="stylesheet" href="styles/animations.css" />
+    <link rel="stylesheet" href="styles/print.css" />
+
+    <!-- Set theme AVANT le rendu pour éviter le flash blanc (FOUC).
+         Lit le choix utilisateur ; sinon défaut = dark. -->
+    <script>
+      (function () {
+        var stored = localStorage.getItem("mg-cv-theme");
+        var theme = stored === "light" || stored === "dark" ? stored : "dark";
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- PROGRESS BAR HAUT -->
+    <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+    <!-- NAV STICKY GAUCHE -->
+    <nav class="side-nav" aria-label="Navigation principale">
+      <div class="side-nav-inner">
+        <a
+          href="#intro"
+          class="side-nav-brand"
+          aria-label="Maxime Garin — Curriculum Vitae"
+        >
+          <span class="side-nav-brand-mark" aria-hidden="true">MG</span>
+          <span class="side-nav-brand-divider" aria-hidden="true"></span>
+          <span class="side-nav-brand-tag" aria-hidden="true"
+            >Curriculum Vitae</span
+          >
+        </a>
+        <ul class="side-nav-list">
+          <li>
+            <a href="#intro" class="side-nav-link" data-section="intro"
+              >Profil</a
+            >
+          </li>
+          <li>
+            <a href="#projects" class="side-nav-link" data-section="projects"
+              >Projets</a
+            >
+          </li>
+          <li>
+            <a href="#skills" class="side-nav-link" data-section="skills"
+              >Compétences</a
+            >
+          </li>
+          <li>
+            <a
+              href="#experience"
+              class="side-nav-link"
+              data-section="experience"
+              >Expérience pro</a
+            >
+          </li>
+          <li>
+            <a href="#education" class="side-nav-link" data-section="education"
+              >Formation</a
+            >
+          </li>
+          <li>
+            <a href="#contact" class="side-nav-link" data-section="contact"
+              >Contact</a
+            >
+          </li>
+        </ul>
+        <div class="side-nav-actions">
+          <button
+            class="btn-icon"
+            id="btn-theme"
+            type="button"
+            aria-label="Basculer thème clair/sombre"
+            title="Basculer thème clair/sombre"
+          >
+            <svg
+              class="icon-sun"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="14"
+              height="14"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0a.996.996 0 0 0 0-1.41l-1.06-1.06zm1.06-10.96a.996.996 0 0 0 0-1.41.996.996 0 0 0-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36a.996.996 0 0 0 0-1.41.996.996 0 0 0-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"
+              />
+            </svg>
+            <svg
+              class="icon-moon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="14"
+              height="14"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"
+              />
+            </svg>
+          </button>
+          <button
+            class="btn-print"
+            id="btn-print"
+            type="button"
+            aria-label="Télécharger en PDF"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="14"
+              height="14"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"
+              />
+            </svg>
+            <span>Télécharger PDF</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- MAIN -->
+    <main class="main">
+      <!-- ═══════ HERO / INTRO ═══════ -->
+      <section
+        id="intro"
+        class="section section--hero"
+        aria-labelledby="hero-title"
+      >
+        <!-- Monogramme MG — brand mark personnel -->
+        <div class="hero-avatar reveal">
+          <img
+            class="hero-avatar-monogram"
+            src="assets/images/monogramme-maxime-garin.png"
+            alt="Monogramme de Maxime Garin"
+            width="96"
+            height="96"
+            decoding="async"
+          />
+        </div>
+        <p class="eyebrow reveal">Nantes · Grand Ouest · Disponible immédiatement</p>
+        <h1 id="hero-title" class="hero-title reveal">Maxime Garin</h1>
+        <p class="hero-subtitle reveal">
+          Développeur Web Junior · Designer numérique de formation
+        </p>
+        <p class="hero-target reveal">
+          Cherche un poste de
+          <strong>développeur web junior</strong>
+          <span class="hero-target-divider">·</span>
+          CDI · CDD · freelance
+          <span class="hero-target-divider">·</span>
+          Nantes &amp; grand Ouest <span class="hero-target-dim">(remote possible)</span>
+        </p>
+        <div class="hero-cta reveal">
+          <a href="#projects" class="btn btn--primary">Voir mes projets</a>
+          <a href="mailto:maxime.garin.mg@gmail.com" class="btn btn--ghost"
+            >Me contacter</a
+          >
+        </div>
+      </section>
+
+      <!-- ═══════ PROFIL ═══════ -->
+      <section class="section section--profile" aria-labelledby="profile-title">
+        <h2 id="profile-title" class="section-title reveal">Profil</h2>
+        <div class="profile-grid">
+          <div class="profile-text reveal">
+            <p>
+              Designer numérique de formation (DNMADE, alternance UI/UX chez
+              MAIF) devenu développeur web (Titre Pro, AFEC Bayonne). Mon double
+              parcours <em>design + dev</em> me permet d'aborder un produit dans
+              sa globalité : je lis un besoin utilisateur, je le traduis en
+              interface <em>et</em> en architecture, puis je tiens la technique
+              jusqu'à la mise en production.
+            </p>
+            <p>
+              Je cherche aujourd'hui à rejoindre une équipe produit où ce profil
+              hybride contribue concrètement, du design à la prod. Ouvert au CDI,
+              au CDD comme au freelance, disponible immédiatement sur Nantes et le
+              grand Ouest (ou en remote).
+            </p>
+          </div>
+          <aside class="profile-aside reveal">
+            <dl class="profile-meta">
+              <div>
+                <dt>Basé à</dt>
+                <dd>Nantes (44)</dd>
+              </div>
+              <div>
+                <dt>Mobilité</dt>
+                <dd>Grand Ouest · remote</dd>
+              </div>
+              <div>
+                <dt>Cible</dt>
+                <dd>Dev web junior · CDI / CDD / freelance</dd>
+              </div>
+              <div>
+                <dt>Disponibilité</dt>
+                <dd>Immédiate</dd>
+              </div>
+            </dl>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ═══════ PROJETS ═══════ -->
+      <section
+        id="projects"
+        class="section section--projects"
+        aria-labelledby="projects-title"
+      >
+        <h2 id="projects-title" class="section-title reveal">Projets</h2>
+        <p class="section-subtitle reveal">
+          Sélection des travaux les plus représentatifs.
+        </p>
+
+        <article class="project-card reveal">
+          <header class="project-card-header">
+            <div class="project-card-meta">
+              <span class="project-card-year">2026</span>
+              <span class="project-card-context"
+                >Projet full-stack · marque + application</span
+              >
+            </div>
+            <h3 class="project-card-title">
+              Imsouane Surf Paradise — Réservation full-stack
+            </h3>
+            <p class="project-card-lead">
+              Application de réservation pour une maison de surf familiale au
+              Maroc — de l'identité de marque jusqu'à l'architecture technique.
+              Conçue et développée en solo, du besoin métier à la mise en
+              production.
+            </p>
+          </header>
+
+          <div class="project-card-body">
+            <div class="project-card-section">
+              <h4>Stack front-end</h4>
+              <ul class="tag-list">
+                <li class="tag">React</li>
+                <li class="tag">Vite</li>
+                <li class="tag">React Router</li>
+                <li class="tag">Context API</li>
+                <li class="tag">CSS3</li>
+              </ul>
+            </div>
+
+            <div class="project-card-section">
+              <h4>Stack back-end</h4>
+              <ul class="tag-list">
+                <li class="tag">Node.js</li>
+                <li class="tag">Express</li>
+                <li class="tag">MySQL</li>
+                <li class="tag">jsonwebtoken</li>
+              </ul>
+            </div>
+
+            <div class="project-card-section">
+              <h4>Livré</h4>
+              <ul class="achievement-list">
+                <li>
+                  Moteur de réservation avec calcul de devis dynamique et
+                  prévention des doubles réservations (gestion de la concurrence)
+                </li>
+                <li>
+                  Transactions SQL pour garantir l'intégrité des réservations en
+                  cas d'erreur
+                </li>
+                <li>
+                  Sécurité : authentification <code>JWT</code> et contrôle
+                  d'accès par rôles (RBAC)
+                </li>
+                <li>
+                  Identité de marque conçue en amont : nom, univers visuel et
+                  direction artistique (racines amazighes / Tifinagh)
+                </li>
+                <li>
+                  Front React modulaire et responsive, expérience utilisateur
+                  pensée de bout en bout
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <footer class="project-card-footer">
+            <a
+              href="https://imsouane-surf-paradise.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-card-link"
+            >
+              <span>Démo live (Vercel)</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="14"
+                height="14"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3z" />
+              </svg>
+            </a>
+            <a
+              href="https://github.com/maximegarin/imsouane-surf-paradise"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-card-link"
+            >
+              <span>Code source GitHub</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="14"
+                height="14"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3z" />
+              </svg>
+            </a>
+          </footer>
+        </article>
+
+        <article class="project-card reveal">
+          <header class="project-card-header">
+            <div class="project-card-meta">
+              <span class="project-card-year">2025 – 2026</span>
+              <span class="project-card-context"
+                >Projet en autonomie · Production</span
+              >
+            </div>
+            <h3 class="project-card-title">Annuaire Pays Basque Digital</h3>
+            <p class="project-card-lead">
+              Refonte complète de l'annuaire en ligne du cluster numérique
+              régional (84 adhérents). Solution validée en assemblée générale.
+            </p>
+          </header>
+
+          <div class="project-card-body">
+            <div class="project-card-section">
+              <h4>Stack</h4>
+              <ul class="tag-list">
+                <li class="tag">WordPress</li>
+                <li class="tag">PHP 7.4+</li>
+                <li class="tag">ACF Pro</li>
+                <li class="tag">JavaScript vanilla</li>
+                <li class="tag">CSS3</li>
+              </ul>
+            </div>
+
+            <div class="project-card-section">
+              <h4>Livré</h4>
+              <ul class="achievement-list">
+                <li>
+                  Grille filtrable (catégorie, ville, recherche) + pagination
+                  client-side
+                </li>
+                <li>
+                  Fiches détaillées avec carrousel photos et copie presse-papier
+                </li>
+                <li>
+                  Optimisations performance : cache transient, lazy loading,
+                  images dimensionnées, <code>fetchpriority</code> + preload
+                </li>
+                <li>
+                  Conformité RGPD : suppression Google Fonts et CDN tiers, SVG
+                  inline (–130 Ko)
+                </li>
+                <li>Mobile-first responsive, ARIA, navigation clavier</li>
+                <li>
+                  Architecture modulaire (7 snippets autonomes) + documentation
+                  3 publics
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <footer class="project-card-footer">
+            <a
+              href="https://pays-basque-digital.fr/annuaire/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-card-link"
+            >
+              <span>Voir en production</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="14"
+                height="14"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3z" />
+              </svg>
+            </a>
+            <a
+              href="https://github.com/maximegarin/pbd-annuaire"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-card-link"
+            >
+              <span>Code source GitHub</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="14"
+                height="14"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3z" />
+              </svg>
+            </a>
+          </footer>
+        </article>
+
+        <article class="project-card reveal">
+          <header class="project-card-header">
+            <div class="project-card-meta">
+              <span class="project-card-year">2026</span>
+              <span class="project-card-context"
+                >Projet en autonomie · 1 semaine</span
+              >
+            </div>
+            <h3 class="project-card-title">
+              Password Manager 2FA — Full-stack
+            </h3>
+            <p class="project-card-lead">
+              Gestionnaire de mots de passe avec authentification double
+              facteur. Front React + Tailwind, API REST Node.js, opérations CRUD
+              complètes. Conçu et livré en solo de bout en bout.
+            </p>
+          </header>
+
+          <div class="project-card-body">
+            <div class="project-card-section">
+              <h4>Stack front-end</h4>
+              <ul class="tag-list">
+                <li class="tag">Next.js</li>
+                <li class="tag">React</li>
+                <li class="tag">Tailwind CSS</li>
+                <li class="tag">Axios</li>
+                <li class="tag">Vite</li>
+              </ul>
+            </div>
+
+            <div class="project-card-section">
+              <h4>Stack back-end</h4>
+              <ul class="tag-list">
+                <li class="tag">Express</li>
+                <li class="tag">MySQL</li>
+                <li class="tag">jsonwebtoken</li>
+                <li class="tag">Zod</li>
+                <li class="tag">argon2</li>
+                <li class="tag">Helmet</li>
+                <li class="tag">CORS</li>
+                <li class="tag">Nodemailer</li>
+              </ul>
+            </div>
+
+            <div class="project-card-section">
+              <h4>Livré</h4>
+              <ul class="achievement-list">
+                <li>
+                  Interface React + Tailwind CSS pour la consultation et
+                  l'édition des credentials (CRUD)
+                </li>
+                <li>
+                  Communication front/back via <code>Axios</code>, configuration
+                  <code>CORS</code> côté serveur pour les requêtes cross-origin
+                </li>
+                <li>
+                  API REST Express : routes authentifiées, opérations CRUD
+                  complètes sur les mots de passe
+                </li>
+                <li>
+                  Authentification double facteur (2FA) — code envoyé par email
+                  via <code>Nodemailer</code>
+                </li>
+                <li>
+                  Middleware d'auth basé sur <code>jsonwebtoken</code> +
+                  validation des payloads avec <code>Zod</code>
+                </li>
+                <li>
+                  Hash des mots de passe utilisateurs avec <code>argon2</code>
+                  (recommandation OWASP), headers HTTP durcis via
+                  <code>Helmet</code>
+                </li>
+                <li>Architecture MVC : modèles, contrôleurs, routes séparés</li>
+              </ul>
+            </div>
+          </div>
+
+          <footer class="project-card-footer">
+            <a
+              href="https://maximegarin-password-manager.onrender.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-card-link"
+            >
+              <span>Démo live (Render)</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="14"
+                height="14"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3z" />
+              </svg>
+            </a>
+            <a
+              href="https://github.com/maximegarin/password-manager-api"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-card-link"
+            >
+              <span>Code source GitHub</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="14"
+                height="14"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3z" />
+              </svg>
+            </a>
+          </footer>
+        </article>
+      </section>
+
+      <!-- ═══════ COMPÉTENCES ═══════ -->
+      <section
+        id="skills"
+        class="section section--skills"
+        aria-labelledby="skills-title"
+      >
+        <h2 id="skills-title" class="section-title reveal">Compétences</h2>
+
+        <div class="skills-grid">
+          <div class="skills-group reveal">
+            <h3 class="skills-group-title">Front-end</h3>
+            <ul class="tag-list">
+              <li class="tag">HTML5</li>
+              <li class="tag">CSS3</li>
+              <li class="tag">JavaScript ES6+</li>
+              <li class="tag">React</li>
+              <li class="tag">Next.js</li>
+              <li class="tag">Responsive design</li>
+              <li class="tag">Accessibilité WCAG</li>
+            </ul>
+          </div>
+
+          <div class="skills-group reveal">
+            <h3 class="skills-group-title">Back-end</h3>
+            <ul class="tag-list">
+              <li class="tag">PHP</li>
+              <li class="tag">Node.js</li>
+              <li class="tag">Express</li>
+              <li class="tag">MySQL</li>
+              <li class="tag">REST APIs</li>
+              <li class="tag">WordPress + ACF</li>
+            </ul>
+          </div>
+
+          <div class="skills-group reveal">
+            <h3 class="skills-group-title">Sécurité & qualité</h3>
+            <ul class="tag-list">
+              <li class="tag">jsonwebtoken</li>
+              <li class="tag">Zod</li>
+              <li class="tag">argon2</li>
+              <li class="tag">Helmet</li>
+              <li class="tag">Middlewares Express</li>
+              <li class="tag">RGPD</li>
+            </ul>
+          </div>
+
+          <div class="skills-group reveal">
+            <h3 class="skills-group-title">Pratiques</h3>
+            <ul class="tag-list">
+              <li class="tag">Performance web</li>
+              <li class="tag">Accessibilité WCAG</li>
+              <li class="tag">Git / GitHub</li>
+              <li class="tag">Debug autonome</li>
+            </ul>
+          </div>
+
+          <div class="skills-group reveal">
+            <h3 class="skills-group-title">Design</h3>
+            <ul class="tag-list">
+              <li class="tag">Figma</li>
+              <li class="tag">Design system</li>
+              <li class="tag">UX research</li>
+              <li class="tag">Ergonomie</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════ EXPÉRIENCE PROFESSIONNELLE ═══════ -->
+      <section
+        id="experience"
+        class="section section--experience"
+        aria-labelledby="experience-title"
+      >
+        <h2 id="experience-title" class="section-title reveal">
+          Expérience professionnelle
+        </h2>
+
+        <ol class="timeline">
+          <li class="timeline-item reveal">
+            <div class="timeline-period">2021 — 2023</div>
+            <div class="timeline-body">
+              <h3 class="timeline-title">
+                Designer UI/UX
+                <span class="timeline-context">— Alternance</span>
+              </h3>
+              <p class="timeline-org">MAIF · Siège · Niort</p>
+              <ul class="timeline-points">
+                <li>
+                  Maintenance et évolution du design system de l'assureur sur 2
+                  ans (Figma)
+                </li>
+                <li>
+                  Production de pictogrammes, logotypes et contenus visuels pour
+                  les supports web et print de la marque
+                </li>
+                <li>
+                  Collaboration transverse avec les équipes produit, dev et
+                  communication
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="timeline-item reveal">
+            <div class="timeline-period">2017 — 2020</div>
+            <div class="timeline-body">
+              <h3 class="timeline-title">
+                Designer Produits Industriels
+                <span class="timeline-context">— CDI</span>
+              </h3>
+              <p class="timeline-org">GPG Granit · Rennes</p>
+              <ul class="timeline-points">
+                <li>
+                  Conception 3D sur-mesure de monuments funéraires en granit, en
+                  lien direct avec la clientèle en B2B (marbriers)
+                </li>
+                <li>
+                  Collaboration transverse avec les équipes commerciales,
+                  logistiques et dev
+                </li>
+                <li>
+                  Négociation tarifaire avec les fournisseurs partenaires en
+                  Asie
+                </li>
+                <li>
+                  Refonte ergonomique des outils numériques internes pour
+                  fluidifier les workflows de production
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- ═══════ FORMATION ═══════ -->
+      <section
+        id="education"
+        class="section section--education"
+        aria-labelledby="education-title"
+      >
+        <h2 id="education-title" class="section-title reveal">Formation</h2>
+
+        <ol class="timeline">
+          <li class="timeline-item reveal">
+            <div class="timeline-period">2024 — 2026</div>
+            <div class="timeline-body">
+              <h3 class="timeline-title">
+                Titre Pro Développeur Web
+                <span class="timeline-context">— RNCP 5</span>
+              </h3>
+              <p class="timeline-org">AFEC · Bayonne</p>
+              <ul class="timeline-points">
+                <li>
+                  Cursus full-stack intensif : du HTML/CSS aux APIs Node.js
+                  sécurisées
+                </li>
+                <li>
+                  Projets pratiques individuels et collectifs : gestionnaire de
+                  mots de passe, clones e-commerce, dashboards
+                </li>
+                <li>
+                  Maîtrise du cycle complet : conception, développement, mise en
+                  production
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="timeline-item reveal">
+            <div class="timeline-period">2020 — 2023</div>
+            <div class="timeline-body">
+              <h3 class="timeline-title">
+                DNMADE Design Numérique
+                <span class="timeline-context">— Bac+3</span>
+              </h3>
+              <p class="timeline-org">L'École de Design de Nantes</p>
+              <ul class="timeline-points">
+                <li>
+                  Diplôme bac+3 en design numérique appliqué : interfaces,
+                  identités visuelles, expériences utilisateur
+                </li>
+                <li>Spécialisation accessibilité et UX research</li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="timeline-item reveal">
+            <div class="timeline-period">2014 — 2017</div>
+            <div class="timeline-body">
+              <h3 class="timeline-title">
+                DNMADE Design de Produits Industriels
+                <span class="timeline-context">— Bac+3</span>
+              </h3>
+              <p class="timeline-org">E.S.A.A.T. · Lille / Roubaix</p>
+              <ul class="timeline-points">
+                <li>
+                  Diplôme bac+3 en conception produit : mobilier, packaging,
+                  objets, micro-architecture
+                </li>
+                <li>
+                  Méthodes de projet, modélisation 3D, recherche utilisateur
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- ═══════ CONTACT ═══════ -->
+      <section
+        id="contact"
+        class="section section--contact"
+        aria-labelledby="contact-title"
+      >
+        <h2 id="contact-title" class="section-title reveal">Contact</h2>
+
+        <div class="contact-grid">
+          <a
+            href="mailto:maxime.garin.mg@gmail.com"
+            class="contact-card reveal"
+          >
+            <span class="contact-card-label">Email</span>
+            <span class="contact-card-value">maxime.garin.mg@gmail.com</span>
+          </a>
+          <a href="tel:+33659460579" class="contact-card reveal">
+            <span class="contact-card-label">Téléphone</span>
+            <span class="contact-card-value">06 59 46 05 79</span>
+          </a>
+          <a
+            href="https://github.com/maximegarin"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-card reveal"
+          >
+            <span class="contact-card-label">GitHub</span>
+            <span class="contact-card-value">github.com/maximegarin</span>
+          </a>
+          <div class="contact-card contact-card--static reveal">
+            <span class="contact-card-label">Localisation</span>
+            <span class="contact-card-value">Nantes (44) · Grand Ouest</span>
+          </div>
+        </div>
+
+        <div class="contact-langs reveal">
+          <h3 class="contact-langs-title">Langues</h3>
+          <ul class="contact-langs-list">
+            <li><strong>Français</strong> — langue maternelle</li>
+            <li><strong>Anglais</strong> — niveau Bac+3</li>
+            <li><strong>Allemand</strong> — niveau Bac</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <p>© 2026 Maxime Garin</p>
+      </footer>
+    </main>
+
+    <!-- BOUTON RETOUR EN HAUT (sticky, apparaît après scroll) -->
+    <button
+      class="btn-back-top"
+      id="btn-back-top"
+      type="button"
+      aria-label="Retour en haut de page"
+      title="Retour en haut"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        width="20"
+        height="20"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8z" />
+      </svg>
+    </button>
+
+    <!-- SCRIPTS -->
+    <script type="module" src="scripts/main.js"></script>
+  </body>
+</html>

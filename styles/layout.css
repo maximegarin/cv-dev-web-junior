@@ -1,0 +1,579 @@
+/* ============================================================
+   LAYOUT.CSS — Structure, navigation, sections
+   Grilles principales et positionnement.
+   ============================================================ */
+
+/* ────── PROGRESS BAR HAUT ────── */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background-color: var(--color-accent);
+    z-index: 100;
+    transition: width 100ms linear;
+    pointer-events: none;
+}
+
+/* ────── NAV STICKY GAUCHE ────── */
+.side-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--nav-width);
+    height: 100vh;
+    padding: var(--space-12) var(--space-8);
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-bg);
+    z-index: 50;
+}
+
+.side-nav-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+    height: 100%;
+}
+
+/* Marque "MG — Curriculum Vitae"
+   Desktop : stack vertical (MG en grand, tiret fin, CV en petit caps trackés)
+   Mobile : inline horizontal pour gagner de la place */
+.side-nav-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+    color: var(--color-text);
+    transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+.side-nav-brand:hover {
+    opacity: 0.6;
+}
+
+.side-nav-brand-mark {
+    font-family: var(--font-display);
+    font-size: var(--fs-xl);
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+/* Tiret décoratif entre MG et CV — élément visuel discret type cosmos.so */
+.side-nav-brand-divider {
+    display: block;
+    width: 18px;
+    height: 1px;
+    background: var(--color-border-strong);
+    transition: width var(--dur-normal) var(--ease-out),
+                background-color var(--dur-fast) var(--ease-out);
+}
+
+.side-nav-brand:hover .side-nav-brand-divider {
+    width: 28px;
+    background: var(--color-text);
+}
+
+.side-nav-brand-tag {
+    font-size: var(--fs-xs);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+    line-height: 1;
+    transition: color var(--dur-fast) var(--ease-out);
+}
+
+.side-nav-brand:hover .side-nav-brand-tag {
+    color: var(--color-text-secondary);
+}
+
+.side-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    flex: 1;
+}
+
+.side-nav-link {
+    display: block;
+    padding: var(--space-2) 0;
+    font-size: var(--fs-sm);
+    font-weight: 400;
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.01em;
+    transition: color var(--dur-fast) var(--ease-out);
+    position: relative;
+}
+
+.side-nav-link::before {
+    content: '';
+    position: absolute;
+    left: -16px;
+    top: 50%;
+    transform: translateY(-50%) scaleX(0);
+    transform-origin: left center;
+    width: 8px;
+    height: 1px;
+    background-color: var(--color-text);
+    transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.side-nav-link:hover,
+.side-nav-link.active {
+    color: var(--color-text);
+}
+
+.side-nav-link.active::before {
+    transform: translateY(-50%) scaleX(1);
+}
+
+/* Actions en bas de nav : toggle thème + bouton PDF */
+.side-nav-actions {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    align-items: flex-start;
+}
+
+/* ────── MAIN CONTENT ────── */
+/* Le main est offset de la largeur de la nav fixe à gauche.
+   On utilise flex pour centrer le contenu dans l'espace disponible
+   (pas seulement coller à la nav) → look plus aéré sur grand écran. */
+.main {
+    margin-left: var(--nav-width);
+    padding: var(--space-16) var(--space-12);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.main > * {
+    width: 100%;
+    max-width: var(--content-max);
+}
+
+/* ────── SECTIONS ────── */
+.section {
+    padding: var(--space-16) 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.section:last-of-type {
+    border-bottom: none;
+}
+
+.section--hero {
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-24);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-3xl);
+    font-weight: 400;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+    margin-bottom: var(--space-2);
+    color: var(--color-text);
+}
+
+.section-subtitle {
+    font-size: var(--fs-base);
+    color: var(--color-text-tertiary);
+    margin-bottom: var(--space-12);
+    max-width: 560px;
+}
+
+/* ────── HERO ────── */
+/* Avatar = monogramme MG en badge circulaire (brand mark personnel).
+   Le PNG (fond opaque + monogramme) REMPLIT le cercle : les coins carrés
+   sont clippés par border-radius + overflow → badge circulaire net. */
+.hero-avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: var(--space-8);
+    transition: transform var(--dur-normal) var(--ease-out);
+}
+
+.hero-avatar:hover {
+    transform: scale(1.03);
+}
+
+.hero-avatar-monogram {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Effet "badge négatif" — le monogramme contraste toujours avec la page :
+   PNG d'origine = monogramme NOIR sur fond BLANC.
+   - Light mode (page claire) → on inverse : fond NOIR + monogramme BLANC
+   - Dark mode  (page sombre) → PNG original : fond BLANC + monogramme NOIR */
+.hero-avatar-monogram {
+    filter: invert(1);
+}
+
+[data-theme="dark"] .hero-avatar-monogram {
+    filter: none;
+}
+
+.eyebrow {
+    font-size: var(--fs-sm);
+    font-weight: 500;
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.04em;
+    margin-bottom: var(--space-6);
+}
+
+.hero-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-5xl);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    margin-bottom: var(--space-6);
+    color: var(--color-text);
+}
+
+.hero-subtitle {
+    font-size: var(--fs-xl);
+    font-weight: 400;
+    color: var(--color-text);
+    margin-bottom: var(--space-8);
+    max-width: 640px;
+}
+
+.hero-target {
+    font-size: var(--fs-base);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-12);
+    max-width: 720px;
+    line-height: 1.5;
+}
+
+.hero-target strong {
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+.hero-target-divider {
+    display: inline-block;
+    margin: 0 var(--space-2);
+    color: var(--color-border-strong);
+}
+
+.hero-target-dim {
+    color: var(--color-text-tertiary);
+    font-size: var(--fs-sm);
+}
+
+.hero-cta {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+}
+
+/* ────── PROFILE GRID ────── */
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: var(--space-12);
+    margin-top: var(--space-8);
+}
+
+.profile-text p {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-4);
+    max-width: 560px;
+}
+
+.profile-text p:last-child {
+    margin-bottom: 0;
+}
+
+.profile-aside {
+    padding-left: var(--space-8);
+    border-left: 1px solid var(--color-border);
+}
+
+.profile-meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.profile-meta dt {
+    font-size: var(--fs-xs);
+    font-weight: 500;
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-1);
+}
+
+.profile-meta dd {
+    font-size: var(--fs-sm);
+    color: var(--color-text);
+}
+
+/* ────── SKILLS GRID ────── */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-12);
+    margin-top: var(--space-8);
+}
+
+.skills-group-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-lg);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    margin-bottom: var(--space-4);
+    color: var(--color-text);
+}
+
+/* ────── CONTACT GRID ────── */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-12);
+}
+
+.contact-langs {
+    margin-top: var(--space-12);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border);
+}
+
+.contact-langs-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-lg);
+    font-weight: 400;
+    margin-bottom: var(--space-4);
+}
+
+.contact-langs-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    font-size: var(--fs-sm);
+    color: var(--color-text-secondary);
+}
+
+.contact-langs-list strong {
+    color: var(--color-text);
+    font-weight: 500;
+    display: inline-block;
+    min-width: 90px;
+}
+
+/* ────── FOOTER ────── */
+.footer {
+    margin-top: var(--space-24);
+    padding: var(--space-8) 0;
+    border-top: 1px solid var(--color-border);
+    font-size: var(--fs-sm);
+    color: var(--color-text-tertiary);
+}
+
+/* ────── RESPONSIVE ────── */
+@media (max-width: 960px) {
+    /* Sticky top sur mobile : la nav reste accessible pendant le scroll
+       pour permettre la navigation entre sections sans remonter en haut. */
+    .side-nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        width: 100%;
+        height: auto;
+        padding: var(--space-4) var(--space-6);
+        background-color: var(--color-bg);
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    /* Sur mobile : 2 lignes
+       Ligne 1 : brand "MG" + scrollable nav links (les catégories respirent)
+       Ligne 2 : actions (toggle thème + télécharger PDF) sur sa propre rangée,
+                 séparée par un trait fin pour signaler une zone secondaire. */
+    .side-nav-inner {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-3);
+    }
+
+    /* Mobile : marque en ligne (MG ─ Curriculum Vitae horizontalement) */
+    .side-nav-brand {
+        flex: 0 0 auto;
+        flex-direction: row;
+        align-items: center;
+        gap: var(--space-3);
+    }
+
+    .side-nav-brand-mark {
+        font-size: var(--fs-lg);
+    }
+
+    .side-nav-brand-divider {
+        width: 14px;
+    }
+
+    .side-nav-brand:hover .side-nav-brand-divider {
+        width: 22px;
+    }
+
+    /* Sur très petits écrans : on raccourcit "Curriculum Vitae" en "CV" pour gain d'espace */
+    .side-nav-brand-tag {
+        font-size: 10px;
+    }
+
+    .side-nav-list {
+        flex: 1 1 auto;
+        flex-direction: row;
+        gap: var(--space-4);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-right: var(--space-6);
+        /* Transition fluide sur le mask quand le scroll change */
+        transition: mask-image var(--dur-fast) var(--ease-out),
+                    -webkit-mask-image var(--dur-fast) var(--ease-out);
+    }
+
+    .side-nav-list::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Fade DROIT : signal "scroll possible vers la droite" — effet texte tronqué.
+       Activé uniquement quand il reste effectivement du contenu à droite
+       (toggled par nav-scroll-hint.js). */
+    .side-nav-list.has-overflow-end {
+        mask-image: linear-gradient(
+            to right,
+            #000 0%,
+            #000 calc(100% - 40px),
+            transparent 100%
+        );
+        -webkit-mask-image: linear-gradient(
+            to right,
+            #000 0%,
+            #000 calc(100% - 40px),
+            transparent 100%
+        );
+    }
+
+    /* Fade GAUCHE : signal "scroll possible vers la gauche" quand l'utilisateur
+       a scrollé à droite (rappel qu'il peut revenir). */
+    .side-nav-list.has-overflow-start {
+        mask-image: linear-gradient(
+            to right,
+            transparent 0%,
+            #000 40px,
+            #000 100%
+        );
+        -webkit-mask-image: linear-gradient(
+            to right,
+            transparent 0%,
+            #000 40px,
+            #000 100%
+        );
+    }
+
+    /* Si scrollable des deux côtés : fade des deux bords */
+    .side-nav-list.has-overflow-start.has-overflow-end {
+        mask-image: linear-gradient(
+            to right,
+            transparent 0%,
+            #000 40px,
+            #000 calc(100% - 40px),
+            transparent 100%
+        );
+        -webkit-mask-image: linear-gradient(
+            to right,
+            transparent 0%,
+            #000 40px,
+            #000 calc(100% - 40px),
+            transparent 100%
+        );
+    }
+
+    .side-nav-link {
+        white-space: nowrap;
+    }
+
+    .side-nav-link::before {
+        display: none;
+    }
+
+    /* Actions sur leur propre ligne en-dessous, alignées à droite */
+    .side-nav-actions {
+        flex: 1 0 100%;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        gap: var(--space-3);
+        padding-top: var(--space-3);
+        margin-top: var(--space-1);
+        border-top: 1px solid var(--color-border);
+    }
+
+    .main {
+        margin-left: 0;
+        padding: var(--space-8) var(--space-6);
+    }
+
+    .hero-title {
+        font-size: var(--fs-4xl);
+    }
+
+    .profile-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+    }
+
+    .profile-aside {
+        padding-left: 0;
+        padding-top: var(--space-6);
+        border-left: none;
+        border-top: 1px solid var(--color-border);
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .hero-title {
+        font-size: var(--fs-3xl);
+    }
+
+    .section-title {
+        font-size: var(--fs-2xl);
+    }
+
+    .hero-target-divider {
+        display: none;
+    }
+
+    .hero-target {
+        line-height: 1.7;
+    }
+}
